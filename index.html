@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pawlio</title>
+  <style>
+    :root {
+      --nav-height: clamp(48px, 5vw, 96px);
+      --black: #000;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--black);
+      color: var(--white);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      width: 100%;
+      background: var(--black);
+    }
+
+    .navbar {
+      min-height: var(--nav-height);
+      display: grid;
+      grid-template-areas: "brand nav social";
+      grid-template-columns: minmax(clamp(90px, 11vw, 210px), 1fr) auto minmax(clamp(150px, 18vw, 340px), 1fr);
+      align-items: center;
+      gap: 15px;
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      padding: clamp(8px, 0.95vw, 18px) clamp(12px, 2.5vw, 48px);
+    }
+
+    .brand,
+    .nav-links,
+    .social-links {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+    }
+
+    .brand {
+      grid-area: brand;
+      justify-content: flex-start;
+      justify-self: start;
+      width: fit-content;
+      flex: 0 0 auto;
+    }
+
+    .nav-links {
+      grid-area: nav;
+      justify-content: center;
+      gap: clamp(18px, 2.35vw, 45px);
+    }
+
+    .social-links {
+      grid-area: social;
+      justify-content: flex-end;
+      gap: clamp(10px, 1vw, 18px);
+    }
+
+    .image-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .image-link:hover,
+    .image-link:focus-visible {
+      opacity: 0.78;
+      transform: translateY(-1px);
+    }
+
+    .image-link:focus-visible {
+      outline: 2px solid var(--white);
+      outline-offset: 6px;
+      border-radius: 2px;
+    }
+
+    .logo-img {
+      width: clamp(75px, 8vw, 154px);
+      height: auto;
+      display: block;
+    }
+
+    .nav-img {
+      height: clamp(18px, 1.7vw, 32px);
+      width: auto;
+    }
+
+    .follow-img {
+      height: clamp(18px, 1.7vw, 32px);
+      width: auto;
+      margin-right: 2px;
+    }
+
+    .social-img {
+      width: clamp(28px, 2.4vw, 46px);
+      height: clamp(28px, 2.4vw, 46px);
+      object-fit: contain;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1928 / 816;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      opacity: 0;
+      animation: heroFade 15s infinite;
+    }
+
+    .hero-slide:nth-child(2) {
+      animation-delay: 5s;
+    }
+
+    .hero-slide:nth-child(3) {
+      animation-delay: 10s;
+    }
+
+    .about-section {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 56px;
+      width: min(100%, 1440px);
+      margin: 0 auto;
+      padding: 96px 64px;
+      background: var(--black);
+      overflow: hidden;
+    }
+
+    .about-visual,
+    .about-copy {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 850ms ease, transform 850ms ease;
+      will-change: opacity, transform;
+    }
+
+    .about-visual {
+      transform: translateX(-90px);
+    }
+
+    .about-copy {
+      transform: translateX(90px);
+    }
+
+    .about-section.is-visible .about-visual,
+    .about-section.is-visible .about-copy {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .about-img,
+    .about-writer-img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .about-img {
+      max-width: 520px;
+    }
+
+    .about-writer-img {
+      max-width: 620px;
+    }
+
+    .why-section {
+      position: relative;
+      min-height: auto;
+      aspect-ratio: 1928 / 4789;
+      background: var(--black) url("images/whyus.png") center top / 100% 100% no-repeat;
+      overflow: hidden;
+    }
+
+    .why-list {
+      position: absolute;
+      top: 19%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 42px;
+      width: 61.2%;
+      padding: 0;
+    }
+
+    .why-item {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 850ms ease, transform 850ms ease;
+      will-change: opacity, transform;
+    }
+
+    .why-item:nth-child(odd) {
+      transform: translateX(-55%);
+    }
+
+    .why-item:nth-child(even) {
+      transform: translateX(55%);
+    }
+
+    .why-item.is-visible:nth-child(odd) {
+      opacity: 1;
+      transform: translateX(-15%);
+    }
+
+    .why-item.is-visible:nth-child(even) {
+      opacity: 1;
+      transform: translateX(15%);
+    }
+
+    .product-section {
+      position: relative;
+      z-index: 1;
+      margin-top: -6px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #ffb71b url("images/productbg.png") center -3% / cover no-repeat;
+      overflow: hidden;
+      padding: 96px 48px;
+    }
+
+    .product-display {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      align-items: end;
+      justify-items: center;
+      gap: 72px;
+      width: min(100%, 1060px);
+    }
+
+    .product-title {
+      display: block;
+      width: min(48vw, 360px);
+      height: auto;
+      margin-bottom: 46px;
+      object-fit: contain;
+    }
+
+    .product-img {
+      display: block;
+      width: min(100%, 390px);
+      height: auto;
+      object-fit: contain;
+      animation: productFloat 4.6s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    .product-img:nth-child(2) {
+      animation-delay: 1.2s;
+    }
+
+    .buy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+      line-height: 0;
+      animation: buyBounce 2.4s ease-in-out infinite;
+      transition: opacity 180ms ease, transform 180ms ease;
+      will-change: transform;
+    }
+
+    .buy-button:hover,
+    .buy-button:focus-visible {
+      opacity: 0.86;
+      transform: translateY(-2px);
+    }
+
+    @keyframes buyBounce {
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+      }
+
+      42% {
+        transform: translateY(0) scale(1);
+      }
+
+      55% {
+        transform: translateY(-12px) scale(1.035);
+      }
+
+      68% {
+        transform: translateY(0) scale(0.985);
+      }
+
+      78% {
+        transform: translateY(-5px) scale(1.015);
+      }
+
+      88% {
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .buy-button:focus-visible {
+      outline: 2px solid var(--black);
+      outline-offset: 6px;
+      border-radius: 2px;
+    }
+
+    .buy-button-img {
+      display: block;
+      width: min(54vw, 430px);
+      height: auto;
+    }
+
+    @keyframes productFloat {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-18px);
+      }
+    }
+
+    @keyframes heroFade {
+      0% {
+        opacity: 0;
+      }
+
+      6%,
+      33% {
+        opacity: 1;
+      }
+
+      39%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .navbar {
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+          "brand nav"
+          "social social";
+        gap: 14px 20px;
+        justify-items: stretch;
+      }
+
+      .brand {
+        justify-self: start;
+      }
+
+      .nav-links {
+        justify-self: end;
+        justify-content: flex-end;
+      }
+
+      .social-links {
+        grid-column: 1 / -1;
+        justify-content: center;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 18px 24px;
+      }
+
+      .about-section {
+        grid-template-columns: 1fr;
+        gap: 38px;
+        min-height: auto;
+        padding: 72px 28px;
+      }
+
+      .about-img {
+        max-width: 430px;
+      }
+
+      .about-writer-img {
+        max-width: 560px;
+      }
+
+      .why-list {
+        gap: 30px;
+        padding: 0;
+      }
+
+      .product-section {
+        padding: 72px 28px;
+      }
+
+      .product-display {
+        gap: 40px;
+      }
+
+      .product-title {
+        width: min(58vw, 310px);
+        margin-bottom: 34px;
+      }
+
+      .product-img {
+        width: min(100%, 320px);
+      }
+
+      .buy-button {
+        margin-top: 38px;
+      }
+
+      .buy-button-img {
+        width: min(62vw, 360px);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .navbar {
+        padding-inline: 16px;
+        gap: 12px 14px;
+      }
+
+      .logo-img {
+        width: clamp(68px, 20vw, 88px);
+      }
+
+      .nav-img {
+        height: clamp(15px, 4vw, 19px);
+      }
+
+      .follow-img {
+        height: clamp(17px, 4.5vw, 22px);
+      }
+
+      .nav-links {
+        gap: 10px 14px;
+      }
+
+      .social-links {
+        gap: 11px;
+      }
+
+      .social-img {
+        width: clamp(28px, 7vw, 34px);
+        height: clamp(28px, 7vw, 34px);
+      }
+
+      .about-section {
+        gap: 30px;
+        padding: 56px 18px;
+      }
+
+      .why-list {
+        gap: 21px;
+        padding: 0;
+      }
+
+      .product-title {
+        width: min(72vw, 260px);
+        margin-bottom: 28px;
+      }
+
+      .buy-button {
+        margin-top: 30px;
+      }
+
+      .buy-button-img {
+        width: min(78vw, 300px);
+      }
+
+      .product-section {
+        padding: 56px 18px;
+      }
+
+      .product-display {
+        grid-template-columns: 1fr;
+      gap: clamp(16px, 2vw, 38px);
+      }
+
+      .product-img {
+        width: min(100%, 260px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Primary navigation">
+      <a class="brand image-link" href="#top" aria-label="Pawlio home">
+        <img class="logo-img" src="images/Pawlio%20Logo_White.png" alt="Pawlio">
+      </a>
+
+      <div class="nav-links" aria-label="Page sections">
+        <a class="image-link" href="#about-us" aria-label="About us">
+          <img class="nav-img" src="images/aboutus.png" alt="About us">
+        </a>
+        <a class="image-link" href="#why-pawlio" aria-label="Why Pawlio">
+          <img class="nav-img" src="images/whypawlio.png" alt="Why Pawlio">
+        </a>
+        <a class="image-link" href="#our-product" aria-label="Our product">
+          <img class="nav-img" src="images/ourproduct.png" alt="Our product">
+        </a>
+      </div>
+
+      <div class="social-links" aria-label="Social links">
+        <img class="follow-img" src="images/follow.png" alt="Follow">
+        <a class="image-link" href="#" aria-label="YouTube">
+          <img class="social-img" src="images/yt.png" alt="YouTube">
+        </a>
+        <a class="image-link" href="#" aria-label="TikTok">
+          <img class="social-img" src="images/tiktok.png" alt="TikTok">
+        </a>
+        <a class="image-link" href="#" aria-label="Instagram">
+          <img class="social-img" src="images/ig.png" alt="Instagram">
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Pawlio product hero slideshow">
+      <img class="hero-slide" src="images/gcpack_hero.jpg" alt="Pawlio Green Chicken product pack">
+      <img class="hero-slide" src="images/bdpack_hero.jpg" alt="Pawlio Beef Duck product pack">
+      <img class="hero-slide" src="images/2pack_hero.jpg" alt="Pawlio two pack product display">
+    </section>
+
+    <section class="about-section" id="about-us" aria-label="About us">
+      <div class="about-visual">
+        <img class="about-img" src="images/about.png" alt="About Pawlio">
+      </div>
+      <div class="about-copy">
+        <img class="about-writer-img" src="images/aboutwriter.png" alt="About Pawlio details">
+      </div>
+    </section>
+
+    <section class="why-section" id="why-pawlio" aria-label="Why Pawlio">
+      <div class="why-list">
+        <img class="why-item" src="images/why1.png" alt="Why Pawlio reason 1">
+        <img class="why-item" src="images/why2.png" alt="Why Pawlio reason 2">
+        <img class="why-item" src="images/why3.png" alt="Why Pawlio reason 3">
+        <img class="why-item" src="images/why4.png" alt="Why Pawlio reason 4">
+        <img class="why-item" src="images/why5.png" alt="Why Pawlio reason 5">
+      </div>
+    </section>
+
+    <section class="product-section" id="our-product" aria-label="Our product">
+      <img class="product-title" src="images/ourproduct.png" alt="Our product">
+      <div class="product-display">
+        <img class="product-img" src="images/chicken.png" alt="Pawlio chicken product">
+        <img class="product-img" src="images/beef.png" alt="Pawlio beef product">
+      </div>
+      <a class="buy-button" href="#" aria-label="Buy Pawlio">
+        <img class="buy-button-img" src="images/buybt.png" alt="Buy now">
+      </a>
+    </section>
+  </main>
+
+  <script>
+    const animatedSections = document.querySelectorAll('.about-section, .why-item');
+
+    const revealOnScroll = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        } else {
+          entry.target.classList.remove('is-visible');
+        }
+      });
+    }, {
+      threshold: 0.22
+    });
+
+    animatedSections.forEach((section) => revealOnScroll.observe(section));
+  </script>
+</body>
+</html>
