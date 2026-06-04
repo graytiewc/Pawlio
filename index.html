@@ -280,10 +280,17 @@
     .product-display {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      align-items: end;
+      align-items: start;
       justify-items: center;
       gap: 72px;
       width: min(100%, 1060px);
+    }
+
+    .product-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(100%, 420px);
     }
 
     .product-title {
@@ -303,64 +310,115 @@
       will-change: transform;
     }
 
-    .product-img:nth-child(2) {
+    .product-card:nth-child(2) .product-img {
       animation-delay: 1.2s;
     }
 
-    .buy-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 50px;
-      line-height: 0;
-      animation: buyBounce 2.4s ease-in-out infinite;
-      transition: opacity 180ms ease, transform 180ms ease;
-      will-change: transform;
+    .product-options {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      width: min(100%, 330px);
+      margin-top: 22px;
     }
 
-    .buy-button:hover,
-    .buy-button:focus-visible {
+    .product-select,
+    .quantity-input {
+      min-height: 42px;
+      border: 2px solid var(--black);
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--black);
+      font: 700 15px/1 Arial, Helvetica, sans-serif;
+      padding: 0 12px;
+    }
+
+    .quantity-input {
+      width: 78px;
+      text-align: center;
+    }
+
+    .add-cart-button,
+    .checkout-button {
+      min-height: 44px;
+      border: 2px solid var(--black);
+      border-radius: 6px;
+      background: var(--black);
+      color: var(--white);
+      cursor: pointer;
+      font: 800 15px/1 Arial, Helvetica, sans-serif;
+      padding: 0 18px;
+      text-transform: uppercase;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .add-cart-button {
+      grid-column: 1 / -1;
+    }
+
+    .add-cart-button:hover,
+    .checkout-button:hover {
       opacity: 0.86;
       transform: translateY(-2px);
     }
 
-    @keyframes buyBounce {
-      0%,
-      100% {
-        transform: translateY(0) scale(1);
-      }
-
-      42% {
-        transform: translateY(0) scale(1);
-      }
-
-      55% {
-        transform: translateY(-12px) scale(1.035);
-      }
-
-      68% {
-        transform: translateY(0) scale(0.985);
-      }
-
-      78% {
-        transform: translateY(-5px) scale(1.015);
-      }
-
-      88% {
-        transform: translateY(0) scale(1);
-      }
+    .cart-box {
+      width: min(100%, 760px);
+      margin-top: 44px;
+      padding: 20px;
+      border: 3px solid var(--black);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--black);
     }
 
-    .buy-button:focus-visible {
-      outline: 2px solid var(--black);
-      outline-offset: 6px;
-      border-radius: 2px;
+    .cart-heading {
+      margin: 0 0 14px;
+      font-size: 22px;
+      line-height: 1;
+      text-align: center;
     }
 
-    .buy-button-img {
+    .cart-items {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .cart-item,
+    .cart-empty {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 38px;
+      font-weight: 700;
+    }
+
+    .cart-empty {
+      justify-content: center;
+      opacity: 0.7;
+    }
+
+    .remove-cart-button {
+      border: 0;
+      background: transparent;
+      color: var(--black);
+      cursor: pointer;
+      font: 800 14px/1 Arial, Helvetica, sans-serif;
+      text-decoration: underline;
+    }
+
+    .checkout-button {
       display: block;
-      width: min(54vw, 430px);
-      height: auto;
+      width: min(100%, 280px);
+      margin: 0 auto;
+    }
+
+    .checkout-button:disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+      transform: none;
     }
 
     @keyframes productFloat {
@@ -460,13 +518,6 @@
         width: min(100%, 320px);
       }
 
-      .buy-button {
-        margin-top: 38px;
-      }
-
-      .buy-button-img {
-        width: min(62vw, 360px);
-      }
     }
 
     @media (max-width: 560px) {
@@ -513,14 +564,6 @@
       .product-title {
         width: min(72vw, 260px);
         margin-bottom: 28px;
-      }
-
-      .buy-button {
-        margin-top: 30px;
-      }
-
-      .buy-button-img {
-        width: min(78vw, 300px);
       }
 
       .product-section {
@@ -589,12 +632,36 @@
     <section class="product-section" id="our-product" aria-label="Our product">
       <img class="product-title" src="images/ourproduct.png" alt="Our product">
       <div class="product-display">
-        <img class="product-img" src="images/chicken.png" alt="Pawlio chicken product">
-        <img class="product-img" src="images/beef.png" alt="Pawlio beef product">
+        <div class="product-card" data-product="chicken">
+          <img class="product-img" src="images/chicken.png" alt="Pawlio chicken product">
+          <div class="product-options">
+            <select class="product-select" aria-label="Chicken product option">
+              <option value="single" data-price-id="price_1TeQGbHzqKH9HNrFGi6LwfW6">Single</option>
+              <option value="package" data-price-id="price_1TeQGbHzqKH9HNrFhn2V78e1">Package</option>
+            </select>
+            <input class="quantity-input" type="number" min="1" value="1" aria-label="Chicken quantity">
+            <button class="add-cart-button" type="button" data-name="Chicken" data-product-id="prod_UdhfwcnhacvTvO">Add to cart</button>
+          </div>
+        </div>
+        <div class="product-card" data-product="beef">
+          <img class="product-img" src="images/beef.png" alt="Pawlio beef product">
+          <div class="product-options">
+            <select class="product-select" aria-label="Beef product option">
+              <option value="single" data-price-id="price_1TeQI0HzqKH9HNrFgZCCDn9i">Single</option>
+              <option value="package" data-price-id="price_1TeQO2HzqKH9HNrFMUZvzdcr">Package</option>
+            </select>
+            <input class="quantity-input" type="number" min="1" value="1" aria-label="Beef quantity">
+            <button class="add-cart-button" type="button" data-name="Beef" data-product-id="prod_UdhhToZZBuwtlW">Add to cart</button>
+          </div>
+        </div>
       </div>
-      <a class="buy-button" href="#" aria-label="Buy Pawlio">
-        <img class="buy-button-img" src="images/buybt.png" alt="Buy now">
-      </a>
+      <div class="cart-box" aria-live="polite">
+        <h2 class="cart-heading">Cart</h2>
+        <div class="cart-items" id="cart-items">
+          <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <button class="checkout-button" id="checkout-button" type="button" disabled>Checkout</button>
+      </div>
     </section>
 
     <section class="footer-social-section" aria-label="Follow Pawlio">
@@ -629,6 +696,112 @@
     });
 
     animatedSections.forEach((section) => revealOnScroll.observe(section));
+
+    const cart = [];
+    const cartItems = document.querySelector('#cart-items');
+    const checkoutButton = document.querySelector('#checkout-button');
+
+    const renderCart = () => {
+      if (!cartItems || !checkoutButton) {
+        return;
+      }
+
+      checkoutButton.disabled = cart.length === 0;
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+        return;
+      }
+
+      cartItems.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <span>${item.name} - ${item.optionLabel} x ${item.quantity}</span>
+          <button class="remove-cart-button" type="button" data-cart-index="${index}">Remove</button>
+        </div>
+      `).join('');
+    };
+
+    document.querySelectorAll('.add-cart-button').forEach((button) => {
+      button.addEventListener('click', () => {
+        const card = button.closest('.product-card');
+        const select = card.querySelector('.product-select');
+        const quantityInput = card.querySelector('.quantity-input');
+        const selectedOption = select.options[select.selectedIndex];
+        const quantity = Math.max(1, Number.parseInt(quantityInput.value, 10) || 1);
+        const priceId = selectedOption.dataset.priceId;
+        const optionLabel = selectedOption.textContent.trim();
+        const existingItem = cart.find((item) => item.priceId === priceId);
+
+        if (existingItem) {
+          existingItem.quantity += quantity;
+        } else {
+          cart.push({
+            name: button.dataset.name,
+            productId: button.dataset.productId,
+            priceId,
+            optionLabel,
+            quantity
+          });
+        }
+
+        quantityInput.value = '1';
+        renderCart();
+      });
+    });
+
+    cartItems?.addEventListener('click', (event) => {
+      const removeButton = event.target.closest('.remove-cart-button');
+
+      if (!removeButton) {
+        return;
+      }
+
+      cart.splice(Number.parseInt(removeButton.dataset.cartIndex, 10), 1);
+      renderCart();
+    });
+
+    checkoutButton?.addEventListener('click', async () => {
+      if (cart.length === 0) {
+        return;
+      }
+
+      checkoutButton.disabled = true;
+      checkoutButton.textContent = 'Loading...';
+
+      try {
+        const response = await fetch('/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            lineItems: cart.map((item) => ({
+              price: item.priceId,
+              quantity: item.quantity
+            }))
+          })
+        });
+
+        if (!response.ok) {
+          const errorResult = await response.json().catch(() => null);
+          throw new Error(errorResult?.error || 'Checkout session request failed');
+        }
+
+        const session = await response.json();
+
+        if (!session.url) {
+          throw new Error('Checkout session URL is missing');
+        }
+
+        window.location.href = session.url;
+      } catch (error) {
+        alert(error.message || 'Checkout is unavailable right now.');
+        checkoutButton.disabled = false;
+        checkoutButton.textContent = 'Checkout';
+      }
+    });
+
+    renderCart();
   </script>
 </body>
 </html>
