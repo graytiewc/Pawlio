@@ -362,14 +362,75 @@
       transform: translateY(-2px);
     }
 
+    .floating-cart {
+      position: fixed;
+      right: clamp(18px, 3vw, 34px);
+      bottom: clamp(18px, 3vw, 34px);
+      z-index: 30;
+    }
+
+    .cart-toggle {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(58px, 5vw, 72px);
+      height: clamp(58px, 5vw, 72px);
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      background: var(--black);
+      color: var(--white);
+      cursor: pointer;
+      line-height: 1;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .cart-toggle:hover,
+    .cart-toggle:focus-visible {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      display: grid;
+      place-items: center;
+      min-width: 26px;
+      height: 26px;
+      padding: 0 7px;
+      border: 2px solid var(--white);
+      border-radius: 999px;
+      background: #ffb71b;
+      color: var(--black);
+      font: 800 13px/1 Arial, Helvetica, sans-serif;
+    }
+
+    .cart-icon {
+      display: block;
+      width: 58%;
+      height: 58%;
+      object-fit: contain;
+    }
+
     .cart-box {
-      width: min(100%, 760px);
-      margin-top: 44px;
+      position: absolute;
+      right: 0;
+      bottom: calc(100% + 16px);
+      display: none;
+      width: min(88vw, 390px);
       padding: 20px;
       border: 3px solid var(--black);
       border-radius: 8px;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.97);
       color: var(--black);
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.3);
+    }
+
+    .floating-cart.is-open .cart-box {
+      display: block;
     }
 
     .cart-heading {
@@ -636,8 +697,8 @@
           <img class="product-img" src="images/chicken.png" alt="Pawlio chicken product">
           <div class="product-options">
             <select class="product-select" aria-label="Chicken product option">
-              <option value="single" data-price-id="price_1TeQGbHzqKH9HNrFGi6LwfW6">Single</option>
-              <option value="package" data-price-id="price_1TeQGbHzqKH9HNrFhn2V78e1">Package</option>
+              <option value="single" data-price-id="price_1TeQGbHzqKH9HNrFGi6LwfW6">1 unit = $60</option>
+              <option value="package" data-price-id="price_1TeQGbHzqKH9HNrFhn2V78e1">2 units = $108</option>
             </select>
             <input class="quantity-input" type="number" min="1" value="1" aria-label="Chicken quantity">
             <button class="add-cart-button" type="button" data-name="Chicken" data-product-id="prod_UdhfwcnhacvTvO">Add to cart</button>
@@ -647,20 +708,13 @@
           <img class="product-img" src="images/beef.png" alt="Pawlio beef product">
           <div class="product-options">
             <select class="product-select" aria-label="Beef product option">
-              <option value="single" data-price-id="price_1TeQI0HzqKH9HNrFgZCCDn9i">Single</option>
-              <option value="package" data-price-id="price_1TeQO2HzqKH9HNrFMUZvzdcr">Package</option>
+              <option value="single" data-price-id="price_1TeQI0HzqKH9HNrFgZCCDn9i">1 unit = $60</option>
+              <option value="package" data-price-id="price_1TeQO2HzqKH9HNrFMUZvzdcr">2 units = $108</option>
             </select>
             <input class="quantity-input" type="number" min="1" value="1" aria-label="Beef quantity">
             <button class="add-cart-button" type="button" data-name="Beef" data-product-id="prod_UdhhToZZBuwtlW">Add to cart</button>
           </div>
         </div>
-      </div>
-      <div class="cart-box" aria-live="polite">
-        <h2 class="cart-heading">Cart</h2>
-        <div class="cart-items" id="cart-items">
-          <div class="cart-empty">Your cart is empty</div>
-        </div>
-        <button class="checkout-button" id="checkout-button" type="button" disabled>Checkout</button>
       </div>
     </section>
 
@@ -680,6 +734,20 @@
     </section>
   </main>
 
+  <div class="floating-cart" id="floating-cart">
+    <button class="cart-toggle" id="cart-toggle" type="button" aria-label="Open cart" aria-expanded="false">
+      <img class="cart-icon" src="images/cart.png" alt="">
+      <span class="cart-count" id="cart-count">0</span>
+    </button>
+    <div class="cart-box" aria-live="polite">
+      <h2 class="cart-heading">Cart</h2>
+      <div class="cart-items" id="cart-items">
+        <div class="cart-empty">Your cart is empty</div>
+      </div>
+      <button class="checkout-button" id="checkout-button" type="button" disabled>Checkout Now</button>
+    </div>
+  </div>
+
   <script>
     const animatedSections = document.querySelectorAll('.about-section, .why-item');
 
@@ -698,6 +766,9 @@
     animatedSections.forEach((section) => revealOnScroll.observe(section));
 
     const cart = [];
+    const floatingCart = document.querySelector('#floating-cart');
+    const cartToggle = document.querySelector('#cart-toggle');
+    const cartCount = document.querySelector('#cart-count');
     const cartItems = document.querySelector('#cart-items');
     const checkoutButton = document.querySelector('#checkout-button');
 
@@ -706,7 +777,14 @@
         return;
       }
 
+      const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+
+      if (cartCount) {
+        cartCount.textContent = String(totalItems);
+      }
+
       checkoutButton.disabled = cart.length === 0;
+      checkoutButton.textContent = 'Checkout Now';
 
       if (cart.length === 0) {
         cartItems.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
@@ -720,6 +798,20 @@
         </div>
       `).join('');
     };
+
+    const setCartOpen = (isOpen) => {
+      if (!floatingCart || !cartToggle) {
+        return;
+      }
+
+      floatingCart.classList.toggle('is-open', isOpen);
+      cartToggle.setAttribute('aria-expanded', String(isOpen));
+      cartToggle.setAttribute('aria-label', isOpen ? 'Close cart' : 'Open cart');
+    };
+
+    cartToggle?.addEventListener('click', () => {
+      setCartOpen(!floatingCart.classList.contains('is-open'));
+    });
 
     document.querySelectorAll('.add-cart-button').forEach((button) => {
       button.addEventListener('click', () => {
@@ -746,6 +838,7 @@
 
         quantityInput.value = '1';
         renderCart();
+        setCartOpen(true);
       });
     });
 
@@ -758,6 +851,16 @@
 
       cart.splice(Number.parseInt(removeButton.dataset.cartIndex, 10), 1);
       renderCart();
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!floatingCart?.classList.contains('is-open')) {
+        return;
+      }
+
+      if (!floatingCart.contains(event.target)) {
+        setCartOpen(false);
+      }
     });
 
     checkoutButton?.addEventListener('click', async () => {
