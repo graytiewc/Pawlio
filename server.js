@@ -91,7 +91,7 @@ const createCheckoutSession = async (lineItems) => {
   form.set('cancel_url', `${PUBLIC_BASE_URL}/?checkout=cancel#our-product`);
   form.set('billing_address_collection', 'required');
   form.set('phone_number_collection[enabled]', 'true');
-  form.set('shipping_address_collection[allowed_countries][]', 'MY');
+  form.set('shipping_address_collection[allowed_countries][]', 'US');
 
   lineItems.forEach((item, index) => {
     form.set(`line_items[${index}][price]`, item.price);
