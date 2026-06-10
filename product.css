@@ -1,0 +1,259 @@
+:root {
+  --black: #050505;
+  --white: #fff;
+  --cream: #f8f1e5;
+  --gold: #ffb71b;
+  --red: #d9232e;
+  --accent: var(--gold);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--black);
+  color: var(--white);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  width: 100%;
+  background: var(--black);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.navbar {
+  width: min(100%, 1180px);
+  min-height: 78px;
+  margin: 0 auto;
+  padding: 14px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: block;
+  width: 132px;
+  height: auto;
+}
+
+.back-link {
+  color: var(--white);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--accent);
+}
+
+.product-hero {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 72px 28px 92px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: clamp(40px, 7vw, 96px);
+}
+
+.product-image {
+  display: block;
+  width: min(100%, 500px);
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: var(--accent);
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-size: clamp(42px, 6vw, 78px);
+  line-height: 0.94;
+}
+
+.lead {
+  margin: 0 0 28px;
+  max-width: 650px;
+  font-size: clamp(18px, 2vw, 24px);
+  line-height: 1.5;
+}
+
+.product-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 0 0 32px;
+  list-style: none;
+}
+
+.product-meta li {
+  padding: 9px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.buy-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 50px;
+  padding: 0 25px;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--black);
+  font-size: 15px;
+  font-weight: 900;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 180ms ease, opacity 180ms ease;
+}
+
+.buy-link:hover,
+.buy-link:focus-visible {
+  opacity: 0.88;
+  transform: translateY(-2px);
+}
+
+.benefits {
+  background: var(--cream);
+  color: var(--black);
+}
+
+.benefits-inner {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 80px 28px;
+}
+
+.benefits h2,
+.details h2 {
+  margin: 0 0 34px;
+  font-size: clamp(32px, 4vw, 52px);
+}
+
+.benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.benefit-card {
+  padding: 26px;
+  border: 2px solid var(--black);
+  border-radius: 16px;
+  background: var(--white);
+}
+
+.benefit-card h3 {
+  margin: 0 0 9px;
+  font-size: 22px;
+}
+
+.benefit-card p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.details {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 80px 28px;
+}
+
+.details p {
+  max-width: 760px;
+  margin: 0 0 18px;
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.site-footer {
+  padding: 28px;
+  border-top: 1px solid rgba(255, 255, 255, 0.16);
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 760px) {
+  .navbar {
+    min-height: 66px;
+    padding-inline: 18px;
+  }
+
+  .logo {
+    width: 100px;
+  }
+
+  .product-hero {
+    grid-template-columns: 1fr;
+    padding: 48px 20px 66px;
+  }
+
+  .product-image {
+    width: min(82vw, 380px);
+    max-height: 62vh;
+  }
+
+  .product-copy {
+    text-align: center;
+  }
+
+  .lead {
+    margin-inline: auto;
+  }
+
+  .product-meta {
+    justify-content: center;
+  }
+
+  .benefits-inner,
+  .details {
+    padding: 60px 20px;
+  }
+
+  .benefit-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .product-image {
+    width: min(78vw, 310px);
+    max-height: 54vh;
+  }
+}
