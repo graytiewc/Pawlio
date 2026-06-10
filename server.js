@@ -92,6 +92,12 @@ const createCheckoutSession = async (lineItems) => {
   form.set('billing_address_collection', 'required');
   form.set('phone_number_collection[enabled]', 'true');
   form.set('shipping_address_collection[allowed_countries][]', 'US');
+  form.set('custom_fields[0][key]', 'order_note');
+  form.set('custom_fields[0][label][type]', 'custom');
+  form.set('custom_fields[0][label][custom]', 'Order notes (optional)');
+  form.set('custom_fields[0][type]', 'text');
+  form.set('custom_fields[0][optional]', 'true');
+  form.set('custom_fields[0][text][maximum_length]', '255');
 
   lineItems.forEach((item, index) => {
     form.set(`line_items[${index}][price]`, item.price);
