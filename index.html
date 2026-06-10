@@ -1,9 +1,24 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Pawlio</title>
+  <title>Pawlio Adult Dog Food | Real Meat, High Protein Recipes</title>
+  <meta name="description" content="Discover Pawlio adult dog food made with real meat, high-quality protein, vitamins and antioxidants. Shop Golden Crunch Chicken & Egg and Beef Delight recipes.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Pawlio">
+  <meta property="og:title" content="Pawlio Adult Dog Food | Happy Dog, Happy Life">
+  <meta property="og:description" content="Adult dog food made with real meat, high-quality protein, vitamins and antioxidants. Explore Pawlio's chicken and beef recipes.">
+  <meta property="og:image" content="images/2pack_hero.jpg">
+  <meta property="og:image:alt" content="Pawlio Golden Crunch and Beef Delight adult dog food packs">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pawlio Adult Dog Food">
+  <meta name="twitter:description" content="Real meat adult dog food in Golden Crunch Chicken & Egg and Beef Delight recipes.">
+  <meta name="twitter:image" content="images/2pack_hero.jpg">
+  <link rel="canonical" href="/">
+  <link rel="preload" as="image" href="images/webp/gcpack_hero.webp" type="image/webp" fetchpriority="high">
   <style>
     :root {
       --nav-height: clamp(48px, 5vw, 96px);
@@ -25,6 +40,18 @@
       background: var(--black);
       color: var(--white);
       font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .site-header {
@@ -69,6 +96,63 @@
       gap: clamp(18px, 2.35vw, 45px);
     }
 
+    .menu-toggle {
+      display: none;
+      grid-area: toggle;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+      border: 2px solid var(--white);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--white);
+      cursor: pointer;
+    }
+
+    .menu-icon,
+    .menu-icon::before,
+    .menu-icon::after {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease, opacity 180ms ease;
+    }
+
+    .menu-icon {
+      position: relative;
+    }
+
+    .menu-icon::before,
+    .menu-icon::after {
+      position: absolute;
+      left: 0;
+      content: "";
+    }
+
+    .menu-icon::before {
+      transform: translateY(-7px);
+    }
+
+    .menu-icon::after {
+      transform: translateY(7px);
+    }
+
+    .site-header.menu-open .menu-icon {
+      background: transparent;
+    }
+
+    .site-header.menu-open .menu-icon::before {
+      transform: rotate(45deg);
+    }
+
+    .site-header.menu-open .menu-icon::after {
+      transform: rotate(-45deg);
+    }
+
     .social-links {
       grid-area: social;
       justify-content: flex-end;
@@ -76,19 +160,68 @@
     }
 
     .footer-social-section {
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-      min-height: clamp(72px, 8vw, 120px);
-      padding: clamp(18px, 2.6vw, 36px) clamp(24px, 7vw, 110px);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 40px;
+      align-items: start;
+      min-height: clamp(110px, 10vw, 150px);
+      padding: clamp(14px, 1.6vw, 24px) clamp(24px, 7vw, 110px);
       background: var(--black);
+    }
+
+    .footer-contact {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, max-content));
+      align-items: start;
+      gap: 24px;
+      column-gap: clamp(48px, 7vw, 120px);
+    }
+
+    .footer-contact-group {
+      display: grid;
+      gap: 7px;
+    }
+
+    .footer-heading {
+      margin: 0 0 4px;
+      color: #ffb71b;
+      font-size: clamp(13px, 1.6vw, 21px);
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .footer-contact p {
+      margin: 0;
+      font-size: clamp(10px, 1.15vw, 13px);
+      line-height: 1.5;
+    }
+
+    .footer-contact a {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .footer-contact a:hover,
+    .footer-contact a:focus-visible {
+      text-decoration: underline;
     }
 
     .footer-social-links {
       display: flex;
       align-items: center;
       justify-content: flex-end;
+      align-self: start;
+      justify-self: end;
       gap: clamp(12px, 1.2vw, 22px);
+    }
+
+    .footer-social-links .follow-img {
+      height: clamp(13px, 1.19vw, 22px);
+    }
+
+    .footer-social-links .social-img {
+      width: clamp(20px, 1.68vw, 32px);
+      height: clamp(20px, 1.68vw, 32px);
     }
 
     .image-link {
@@ -189,7 +322,31 @@
     }
 
     .about-copy {
+      flex-direction: column;
+      align-items: flex-start;
       transform: translateX(90px);
+    }
+
+    .section-kicker {
+      margin: 0 0 12px;
+      color: #ffb71b;
+      font-size: clamp(14px, 1.4vw, 18px);
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .about-heading {
+      margin: 0 0 24px;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: 0.95;
+    }
+
+    .about-copy p:not(.section-kicker) {
+      max-width: 620px;
+      margin: 0 0 18px;
+      font-size: clamp(17px, 1.7vw, 23px);
+      line-height: 1.55;
     }
 
     .about-section.is-visible .about-visual,
@@ -218,7 +375,7 @@
       position: relative;
       min-height: auto;
       aspect-ratio: 1928 / 4789;
-      background: var(--black) url("images/whyus.png") center top / 100% 100% no-repeat;
+      background: var(--black) url("images/webp/whyus.webp") center top / 100% 100% no-repeat;
       overflow: hidden;
     }
 
@@ -293,6 +450,27 @@
       width: min(100%, 420px);
     }
 
+    .product-info {
+      width: min(100%, 390px);
+      min-height: 154px;
+      margin-top: 18px;
+      color: var(--black);
+      text-align: center;
+    }
+
+    .product-info h3 {
+      margin: 0 0 10px;
+      font-size: clamp(22px, 2.2vw, 30px);
+      line-height: 1.1;
+    }
+
+    .product-info p {
+      margin: 0 auto;
+      max-width: 370px;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
     .product-title {
       display: block;
       width: min(48vw, 360px);
@@ -306,12 +484,6 @@
       width: min(100%, 390px);
       height: auto;
       object-fit: contain;
-      animation: productFloat 4.6s ease-in-out infinite;
-      will-change: transform;
-    }
-
-    .product-card:nth-child(2) .product-img {
-      animation-delay: 1.2s;
     }
 
     .product-options {
@@ -354,6 +526,48 @@
 
     .add-cart-button {
       grid-column: 1 / -1;
+    }
+
+    .product-detail-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      width: min(100%, 330px);
+      margin-top: 12px;
+      border: 2px solid var(--black);
+      border-radius: 6px;
+      color: var(--black);
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .product-detail-link:hover,
+    .product-detail-link:focus-visible {
+      background: var(--black);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .footer-brand {
+      max-width: 680px;
+    }
+
+    .footer-brand p {
+      margin: 0;
+      font-size: clamp(12px, 1.15vw, 15px);
+      line-height: 1.6;
+    }
+
+    .footer-meta {
+      justify-self: end;
+      margin: 0;
+      font-size: clamp(11px, 1vw, 14px);
+      line-height: 1.5;
+      text-align: right;
     }
 
     .add-cart-button:hover,
@@ -482,17 +696,6 @@
       transform: none;
     }
 
-    @keyframes productFloat {
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(-18px);
-      }
-    }
-
     @keyframes heroFade {
       0% {
         opacity: 0;
@@ -513,7 +716,7 @@
       .navbar {
         grid-template-columns: auto 1fr;
         grid-template-areas:
-          "brand nav";
+          "brand toggle";
         gap: 14px 20px;
         justify-items: stretch;
       }
@@ -522,9 +725,33 @@
         justify-self: start;
       }
 
-      .nav-links {
+      .menu-toggle {
+        display: inline-flex;
         justify-self: end;
-        justify-content: flex-end;
+      }
+
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        padding: 28px 24px 32px;
+        border-top: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(0, 0, 0, 0.97);
+        box-shadow: 0 18px 30px rgba(0, 0, 0, 0.28);
+      }
+
+      .site-header.menu-open .nav-links {
+        display: flex;
+      }
+
+      .nav-links .nav-img {
+        height: clamp(22px, 3vw, 30px);
       }
 
       .social-links {
@@ -533,13 +760,29 @@
       }
 
       .footer-social-section {
-        justify-content: center;
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
         padding-inline: 28px;
       }
 
-      .nav-links {
-        flex-wrap: wrap;
-        gap: 18px 24px;
+      .footer-contact {
+        grid-template-columns: repeat(2, minmax(0, max-content));
+      }
+
+      .footer-social-links {
+        justify-content: center;
+        justify-self: center;
+      }
+
+      .footer-meta {
+        justify-self: center;
+        text-align: center;
+      }
+
+      .footer-social-links {
+        justify-content: center;
+        justify-self: center;
       }
 
       .about-section {
@@ -579,6 +822,10 @@
         width: min(100%, 320px);
       }
 
+      .product-info {
+        min-height: 178px;
+      }
+
     }
 
     @media (max-width: 560px) {
@@ -600,7 +847,7 @@
       }
 
       .nav-links {
-        gap: 10px 14px;
+        gap: 22px;
       }
 
       .social-links {
@@ -610,6 +857,19 @@
       .social-img {
         width: clamp(28px, 7vw, 34px);
         height: clamp(28px, 7vw, 34px);
+      }
+
+      .footer-contact {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-social-links .follow-img {
+        height: clamp(12px, 3.15vw, 15px);
+      }
+
+      .footer-social-links .social-img {
+        width: clamp(20px, 4.9vw, 24px);
+        height: clamp(20px, 4.9vw, 24px);
       }
 
       .about-section {
@@ -633,7 +893,11 @@
 
       .product-display {
         grid-template-columns: 1fr;
-      gap: clamp(16px, 2vw, 38px);
+        gap: clamp(34px, 8vw, 56px);
+      }
+
+      .product-info {
+        min-height: 0;
       }
 
       .product-img {
@@ -649,7 +913,11 @@
         <img class="logo-img" src="images/Pawlio%20Logo_White.png" alt="Pawlio">
       </a>
 
-      <div class="nav-links" aria-label="Page sections">
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation menu" aria-controls="nav-links" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+
+      <div class="nav-links" id="nav-links">
         <a class="image-link" href="#about-us" aria-label="About us">
           <img class="nav-img" src="images/aboutus.png" alt="About us">
         </a>
@@ -665,73 +933,100 @@
   </header>
 
   <main id="top">
-    <section class="hero" aria-label="Pawlio product hero slideshow">
-      <img class="hero-slide" src="images/gcpack_hero.jpg" alt="Pawlio Green Chicken product pack">
-      <img class="hero-slide" src="images/bdpack_hero.jpg" alt="Pawlio Beef Duck product pack">
-      <img class="hero-slide" src="images/2pack_hero.jpg" alt="Pawlio two pack product display">
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="visually-hidden">
+        <h1 id="hero-heading">Pawlio Adult Dog Food Made with Real Meat</h1>
+        <p>Explore Golden Crunch Chicken &amp; Egg Recipe and Beef Delight Recipe for adult dogs.</p>
+      </div>
+      <img class="hero-slide" src="images/webp/gcpack_hero.webp" width="1928" height="816" alt="Pawlio Golden Crunch Chicken and Egg Recipe adult dog food pack" fetchpriority="high" decoding="async">
+      <img class="hero-slide" src="images/webp/bdpack_hero.webp" width="1928" height="816" alt="Pawlio Beef Delight Recipe adult dog food pack" decoding="async">
+      <img class="hero-slide" src="images/webp/2pack_hero.webp" width="1928" height="816" alt="Pawlio Golden Crunch and Beef Delight adult dog food packs" decoding="async">
     </section>
 
-    <section class="about-section" id="about-us" aria-label="About us">
+    <section class="about-section" id="about-us" aria-labelledby="about-heading">
       <div class="about-visual">
-        <img class="about-img" src="images/about.png" alt="About Pawlio">
+        <img class="about-img" src="images/webp/about.webp" width="764" height="764" alt="Pawlio dog food research and ingredient selection" loading="lazy" decoding="async">
       </div>
       <div class="about-copy">
-        <img class="about-writer-img" src="images/aboutwriter.png" alt="About Pawlio details">
+        <p class="section-kicker">Happy dog, happy life</p>
+        <h2 class="about-heading" id="about-heading">Wholesome food for everyday adventures</h2>
+        <p>Pawlio makes adult dog food with real meat ingredients and high-quality protein. Every recipe is created for satisfying everyday meals your dog can look forward to.</p>
+        <p>Choose from Golden Crunch Chicken &amp; Egg Recipe or Beef Delight Recipe, both available in convenient 2.5 kg packs.</p>
       </div>
     </section>
 
-    <section class="why-section" id="why-pawlio" aria-label="Why Pawlio">
+    <section class="why-section" id="why-pawlio" aria-labelledby="why-heading">
+      <div class="visually-hidden">
+        <h2 id="why-heading">Why Choose Pawlio Dog Food</h2>
+        <ul>
+          <li>Real meat ingredients for tasty, wholesome nutrition.</li>
+          <li>High-quality protein to support strong muscles and daily energy.</li>
+          <li>Vitamins and antioxidants to support overall wellness.</li>
+          <li>Easy-to-digest recipes suitable for everyday feeding.</li>
+          <li>No artificial colors or flavors.</li>
+        </ul>
+      </div>
       <div class="why-list">
-        <img class="why-item" src="images/why1.png" alt="Why Pawlio reason 1">
-        <img class="why-item" src="images/why2.png" alt="Why Pawlio reason 2">
-        <img class="why-item" src="images/why3.png" alt="Why Pawlio reason 3">
-        <img class="why-item" src="images/why4.png" alt="Why Pawlio reason 4">
-        <img class="why-item" src="images/why5.png" alt="Why Pawlio reason 5">
+        <img class="why-item" src="images/why1.png" width="1191" height="374" alt="" loading="lazy" decoding="async">
+        <img class="why-item" src="images/why2.png" width="1190" height="374" alt="" loading="lazy" decoding="async">
+        <img class="why-item" src="images/why3.png" width="1191" height="373" alt="" loading="lazy" decoding="async">
+        <img class="why-item" src="images/why4.png" width="1190" height="374" alt="" loading="lazy" decoding="async">
+        <img class="why-item" src="images/why5.png" width="1191" height="374" alt="" loading="lazy" decoding="async">
       </div>
     </section>
 
-    <section class="product-section" id="our-product" aria-label="Our product">
-      <img class="product-title" src="images/ourproduct.png" alt="Our product">
+    <section class="product-section" id="our-product" aria-labelledby="products-heading">
+      <h2 class="visually-hidden" id="products-heading">Shop Pawlio Adult Dog Food</h2>
+      <img class="product-title" src="images/ourproduct.png" alt="" loading="lazy" decoding="async">
       <div class="product-display">
-        <div class="product-card" data-product="chicken">
-          <img class="product-img" src="images/chicken.png" alt="Pawlio chicken product">
+        <article class="product-card" data-product="chicken">
+          <div class="product-info">
+            <h3>Pawlio Golden Crunch Chicken &amp; Egg Recipe Adult Dog Food, 2.5 kg</h3>
+            <p>Adult dog food with real chicken, egg, high-quality protein, vitamins and antioxidants.</p>
+          </div>
+          <img class="product-img" src="images/webp/chicken.webp" width="638" height="775" alt="Pawlio Golden Crunch Chicken and Egg Recipe adult dog food, 2.5 kg" loading="lazy" decoding="async">
           <div class="product-options">
             <select class="product-select" aria-label="Chicken product option">
-              <option value="single" data-price-id="price_1TeQGbHzqKH9HNrFGi6LwfW6">1 unit = $60</option>
-              <option value="package" data-price-id="price_1TeQGbHzqKH9HNrFhn2V78e1">2 units = $108</option>
+              <option value="single" data-price-id="price_1TeQGbHzqKH9HNrFGi6LwfW6" data-cart-name="Golden Crunch flavor 1-Pack">Single Pack - US$60</option>
+              <option value="package" data-price-id="price_1TeQGbHzqKH9HNrFhn2V78e1" data-cart-name="Golden Crunch flavor 2-Pack Bundle">2-Pack Bundle - US$108</option>
             </select>
             <input class="quantity-input" type="number" min="1" value="1" aria-label="Chicken quantity">
             <button class="add-cart-button" type="button" data-name="Chicken" data-product-id="prod_UdhfwcnhacvTvO">Add to cart</button>
           </div>
-        </div>
-        <div class="product-card" data-product="beef">
-          <img class="product-img" src="images/beef.png" alt="Pawlio beef product">
+          <a class="product-detail-link" href="golden-crunch.html">View Detail</a>
+        </article>
+        <article class="product-card" data-product="beef">
+          <div class="product-info">
+            <h3>Pawlio Beef Delight Recipe Adult Dog Food, 2.5 kg</h3>
+            <p>Adult dog food with real beef, high-quality protein, vitamins and antioxidants.</p>
+          </div>
+          <img class="product-img" src="images/webp/beef.webp" width="637" height="774" alt="Pawlio Beef Delight Recipe adult dog food, 2.5 kg" loading="lazy" decoding="async">
           <div class="product-options">
             <select class="product-select" aria-label="Beef product option">
-              <option value="single" data-price-id="price_1TeQI0HzqKH9HNrFgZCCDn9i">1 unit = $60</option>
-              <option value="package" data-price-id="price_1TeQO2HzqKH9HNrFMUZvzdcr">2 units = $108</option>
+              <option value="single" data-price-id="price_1TeQI0HzqKH9HNrFgZCCDn9i" data-cart-name="Beef & Delight flavor 1-Pack">Single Pack - US$60</option>
+              <option value="package" data-price-id="price_1TeQO2HzqKH9HNrFMUZvzdcr" data-cart-name="Beef & Delight flavor 2-Pack Bundle">2-Pack Bundle - US$108</option>
             </select>
             <input class="quantity-input" type="number" min="1" value="1" aria-label="Beef quantity">
             <button class="add-cart-button" type="button" data-name="Beef" data-product-id="prod_UdhhToZZBuwtlW">Add to cart</button>
           </div>
-        </div>
+          <a class="product-detail-link" href="beef-delight.html">View Detail</a>
+        </article>
       </div>
     </section>
 
-    <section class="footer-social-section" aria-label="Follow Pawlio">
-      <div class="footer-social-links" aria-label="Social links">
-        <img class="follow-img" src="images/follow.png" alt="Follow">
-        <a class="image-link" href="#" aria-label="YouTube">
-          <img class="social-img" src="images/yt.png" alt="YouTube">
-        </a>
-        <a class="image-link" href="#" aria-label="TikTok">
-          <img class="social-img" src="images/tiktok.png" alt="TikTok">
-        </a>
-        <a class="image-link" href="#" aria-label="Instagram">
-          <img class="social-img" src="images/ig.png" alt="Instagram">
-        </a>
+    <footer class="footer-social-section" aria-label="Pawlio contact and social links">
+      <div class="footer-brand">
+        <h2 class="footer-heading">Pawlio Adult Dog Food</h2>
+        <p>Real meat recipes made for tasty, wholesome everyday nutrition.</p>
+        <p class="footer-meta">&copy; 2026 Pawlio. All rights reserved.</p>
       </div>
-    </section>
+      <div class="footer-social-links" role="group" aria-label="Pawlio social media">
+        <img class="follow-img" src="images/follow.png" alt="Follow us">
+        <img class="social-img" src="images/yt.png" alt="Pawlio on YouTube">
+        <img class="social-img" src="images/tiktok.png" alt="Pawlio on TikTok">
+        <img class="social-img" src="images/ig.png" alt="Pawlio on Instagram">
+      </div>
+    </footer>
   </main>
 
   <div class="floating-cart" id="floating-cart">
@@ -766,11 +1061,52 @@
     animatedSections.forEach((section) => revealOnScroll.observe(section));
 
     const cart = [];
+    const siteHeader = document.querySelector('.site-header');
+    const menuToggle = document.querySelector('#menu-toggle');
+    const navLinks = document.querySelector('#nav-links');
     const floatingCart = document.querySelector('#floating-cart');
     const cartToggle = document.querySelector('#cart-toggle');
     const cartCount = document.querySelector('#cart-count');
     const cartItems = document.querySelector('#cart-items');
     const checkoutButton = document.querySelector('#checkout-button');
+
+    const setMenuOpen = (isOpen) => {
+      if (!siteHeader || !menuToggle) {
+        return;
+      }
+
+      siteHeader.classList.toggle('menu-open', isOpen);
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    };
+
+    menuToggle?.addEventListener('click', () => {
+      setMenuOpen(!siteHeader.classList.contains('menu-open'));
+    });
+
+    navLinks?.addEventListener('click', (event) => {
+      if (event.target.closest('a')) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (siteHeader?.classList.contains('menu-open') && !siteHeader.contains(event.target)) {
+        setMenuOpen(false);
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setMenuOpen(false);
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 980) {
+        setMenuOpen(false);
+      }
+    });
 
     const renderCart = () => {
       if (!cartItems || !checkoutButton) {
@@ -793,7 +1129,7 @@
 
       cartItems.innerHTML = cart.map((item, index) => `
         <div class="cart-item">
-          <span>${item.name} - ${item.optionLabel} x ${item.quantity}</span>
+          <span>${item.cartName} x ${item.quantity}</span>
           <button class="remove-cart-button" type="button" data-cart-index="${index}">Remove</button>
         </div>
       `).join('');
@@ -822,6 +1158,7 @@
         const quantity = Math.max(1, Number.parseInt(quantityInput.value, 10) || 1);
         const priceId = selectedOption.dataset.priceId;
         const optionLabel = selectedOption.textContent.trim();
+        const cartName = selectedOption.dataset.cartName;
         const existingItem = cart.find((item) => item.priceId === priceId);
 
         if (existingItem) {
@@ -832,6 +1169,7 @@
             productId: button.dataset.productId,
             priceId,
             optionLabel,
+            cartName,
             quantity
           });
         }

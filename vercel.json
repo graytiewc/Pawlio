@@ -3,6 +3,14 @@
     {
       "source": "/create-checkout-session",
       "destination": "/api/create-checkout-session"
+    },
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/api/robots"
     }
   ]
 }
