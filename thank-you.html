@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Thank You | Pawlio</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+      padding: 32px;
+    }
+
+    .thank-you {
+      width: min(100%, 720px);
+    }
+
+    .logo {
+      display: block;
+      width: min(48vw, 180px);
+      height: auto;
+      margin: 0 auto 44px;
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: 0.95;
+    }
+
+    p {
+      margin: 0 auto 34px;
+      max-width: 560px;
+      font-size: clamp(18px, 2.3vw, 26px);
+      line-height: 1.45;
+      font-weight: 700;
+    }
+
+    .home-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 26px;
+      border: 2px solid #fff;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .home-link:hover,
+    .home-link:focus-visible {
+      opacity: 0.78;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <main class="thank-you">
+    <img class="logo" src="images/Pawlio%20Logo_White.png" alt="Pawlio">
+    <h1>Thank You!</h1>
+    <p>Your order has been received. We will process it as soon as possible and contact you if we need any additional details.</p>
+    <a class="home-link" href="/">Back to Home</a>
+  </main>
+</body>
+</html>
