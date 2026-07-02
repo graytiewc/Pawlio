@@ -10,9 +10,10 @@
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="Pawlio">
+  <meta property="og:url" content="https://pawlio-eight.vercel.app/">
   <meta property="og:title" content="Pawlio | Wholesome Nutrition for Happy Dogs">
   <meta property="og:description" content="Real meat recipes, quality protein, and everyday nutrition made for the dogs who make life better. Discover Golden Crunch and Beef Delight.">
-  <meta property="og:image" content="images/2pack_hero.jpg">
+  <meta property="og:image" content="https://pawlio-eight.vercel.app/images/2pack_hero.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1928">
   <meta property="og:image:height" content="816">
@@ -20,10 +21,96 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Pawlio | Wholesome Nutrition for Happy Dogs">
   <meta name="twitter:description" content="Real meat recipes and quality nutrition for happier everyday moments with your dog.">
-  <meta name="twitter:image" content="images/2pack_hero.jpg">
+  <meta name="twitter:image" content="https://pawlio-eight.vercel.app/images/2pack_hero.jpg">
   <meta name="twitter:image:alt" content="Pawlio Golden Crunch and Beef Delight adult dog food packs">
-  <link rel="canonical" href="/">
-  <link rel="preload" as="image" href="images/webp/gcpack_hero.webp" type="image/webp" fetchpriority="high">
+  <link rel="canonical" href="https://pawlio-eight.vercel.app/">
+  <link rel="preload" as="image" href="images/webp/gcpack_hero.webp" type="image/webp" media="(min-width: 561px)" fetchpriority="high">
+  <link rel="preload" as="image" href="images/hero1m.png" type="image/png" media="(max-width: 560px)" fetchpriority="high">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "OnlineStore",
+        "@id": "https://pawlio-eight.vercel.app/#organization",
+        "name": "Pawlio",
+        "url": "https://pawlio-eight.vercel.app/",
+        "logo": "https://pawlio-eight.vercel.app/images/Pawlio%20Logo_Black.png",
+        "description": "Pawlio makes wholesome adult dog food with real meat and high-quality protein.",
+        "areaServed": {
+          "@type": "Country",
+          "name": "United States"
+        },
+        "paymentAccepted": "Credit card payments securely processed by Stripe"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pawlio-eight.vercel.app/#website",
+        "url": "https://pawlio-eight.vercel.app/",
+        "name": "Pawlio",
+        "publisher": {
+          "@id": "https://pawlio-eight.vercel.app/#organization"
+        },
+        "inLanguage": "en-US"
+      },
+      {
+        "@type": "ItemList",
+        "name": "Pawlio Adult Dog Food Recipes",
+        "numberOfItems": 2,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://pawlio-eight.vercel.app/golden-crunch.html",
+            "item": {
+              "@type": "Product",
+              "name": "Pawlio Golden Crunch Chicken & Egg Recipe Adult Dog Food",
+              "image": "https://pawlio-eight.vercel.app/images/gcpack_hero.jpg",
+              "description": "Adult dog food with real chicken and egg, high-quality protein, vitamins and antioxidants.",
+              "sku": "prod_UdhfwcnhacvTvO",
+              "brand": {
+                "@type": "Brand",
+                "name": "Pawlio"
+              },
+              "offers": {
+                "@type": "Offer",
+                "url": "https://pawlio-eight.vercel.app/#our-product",
+                "priceCurrency": "USD",
+                "price": "60.00",
+                "availability": "https://schema.org/InStock",
+                "itemCondition": "https://schema.org/NewCondition"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://pawlio-eight.vercel.app/beef-delight.html",
+            "item": {
+              "@type": "Product",
+              "name": "Pawlio Beef Delight Recipe Adult Dog Food",
+              "image": "https://pawlio-eight.vercel.app/images/bdpack_hero.jpg",
+              "description": "Adult dog food with real beef, high-quality protein, vitamins and antioxidants.",
+              "sku": "prod_UdhhToZZBuwtlW",
+              "brand": {
+                "@type": "Brand",
+                "name": "Pawlio"
+              },
+              "offers": {
+                "@type": "Offer",
+                "url": "https://pawlio-eight.vercel.app/#our-product",
+                "priceCurrency": "USD",
+                "price": "60.00",
+                "availability": "https://schema.org/InStock",
+                "itemCondition": "https://schema.org/NewCondition"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
   <style>
     :root {
       --nav-height: clamp(48px, 5vw, 96px);
@@ -166,11 +253,10 @@
 
     .footer-social-section {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 40px;
+      grid-template-columns: minmax(240px, 1.5fr) repeat(2, minmax(150px, 0.8fr)) auto;
+      gap: clamp(28px, 4vw, 64px);
       align-items: start;
-      min-height: clamp(110px, 10vw, 150px);
-      padding: clamp(14px, 1.6vw, 24px) clamp(24px, 7vw, 110px);
+      padding: clamp(36px, 4vw, 64px) clamp(24px, 7vw, 110px) 24px;
       background: var(--black);
     }
 
@@ -193,6 +279,48 @@
       font-size: clamp(13px, 1.6vw, 21px);
       line-height: 1.2;
       text-transform: uppercase;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--white);
+      font-size: clamp(12px, 1.05vw, 14px);
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .footer-links a:hover,
+    .footer-links a:focus-visible {
+      color: #ffb71b;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-info {
+      display: grid;
+      gap: 12px;
+    }
+
+    .footer-info-item {
+      margin: 0;
+      font-size: clamp(12px, 1.05vw, 14px);
+      line-height: 1.55;
+    }
+
+    .footer-info-item strong {
+      display: block;
+      color: var(--white);
+    }
+
+    .footer-info-item span {
+      color: rgba(255, 255, 255, 0.72);
     }
 
     .footer-contact p {
@@ -285,10 +413,16 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
-      object-position: center;
       opacity: 0;
       animation: heroFade 15s infinite;
+    }
+
+    .hero-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
     }
 
     .hero-slide:nth-child(2) {
@@ -568,11 +702,14 @@
     }
 
     .footer-meta {
-      justify-self: end;
-      margin: 0;
+      grid-column: 1 / -1;
+      width: 100%;
+      margin: 10px 0 0;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
       font-size: clamp(11px, 1vw, 14px);
       line-height: 1.5;
-      text-align: right;
+      text-align: center;
     }
 
     .add-cart-button:hover,
@@ -765,9 +902,7 @@
       }
 
       .footer-social-section {
-        grid-template-columns: 1fr;
-        justify-items: center;
-        text-align: center;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         padding-inline: 28px;
       }
 
@@ -777,7 +912,7 @@
 
       .footer-social-links {
         justify-content: center;
-        justify-self: center;
+        justify-self: start;
       }
 
       .footer-meta {
@@ -834,6 +969,14 @@
     }
 
     @media (max-width: 560px) {
+      .hero {
+        aspect-ratio: 941 / 1672;
+      }
+
+      .hero-slide img {
+        object-fit: cover;
+      }
+
       .navbar {
         padding-inline: 16px;
         gap: 12px 14px;
@@ -866,6 +1009,21 @@
 
       .footer-contact {
         grid-template-columns: 1fr;
+      }
+
+      .footer-social-section {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .footer-links,
+      .footer-info {
+        justify-items: center;
+      }
+
+      .footer-social-links {
+        justify-self: center;
       }
 
       .footer-social-links .follow-img {
@@ -943,9 +1101,18 @@
         <h1 id="hero-heading">Pawlio Adult Dog Food Made with Real Meat</h1>
         <p>Explore Golden Crunch Chicken &amp; Egg Recipe and Beef Delight Recipe for adult dogs.</p>
       </div>
-      <img class="hero-slide" src="images/webp/gcpack_hero.webp" width="1928" height="816" alt="Pawlio Golden Crunch Chicken and Egg Recipe adult dog food pack" fetchpriority="high" decoding="async">
-      <img class="hero-slide" src="images/webp/bdpack_hero.webp" width="1928" height="816" alt="Pawlio Beef Delight Recipe adult dog food pack" decoding="async">
-      <img class="hero-slide" src="images/webp/2pack_hero.webp" width="1928" height="816" alt="Pawlio Golden Crunch and Beef Delight adult dog food packs" decoding="async">
+      <picture class="hero-slide">
+        <source media="(max-width: 560px)" srcset="images/hero1m.png">
+        <img src="images/webp/gcpack_hero.webp" width="1928" height="816" alt="Pawlio Golden Crunch Chicken and Egg Recipe adult dog food pack" fetchpriority="high" decoding="async">
+      </picture>
+      <picture class="hero-slide">
+        <source media="(max-width: 560px)" srcset="images/hero2m.png">
+        <img src="images/webp/bdpack_hero.webp" width="1928" height="816" alt="Pawlio Beef Delight Recipe adult dog food pack" decoding="async">
+      </picture>
+      <picture class="hero-slide">
+        <source media="(max-width: 560px)" srcset="images/hero3m.png">
+        <img src="images/webp/2pack_hero.webp" width="1928" height="816" alt="Pawlio Golden Crunch and Beef Delight adult dog food packs" decoding="async">
+      </picture>
     </section>
 
     <section class="about-section" id="about-us" aria-labelledby="about-heading">
@@ -1019,18 +1186,45 @@
       </div>
     </section>
 
-    <footer class="footer-social-section" aria-label="Pawlio contact and social links">
+    <footer class="footer-social-section" aria-label="Pawlio information and links">
       <div class="footer-brand">
         <h2 class="footer-heading">Pawlio Adult Dog Food</h2>
-        <p>Real meat recipes made for tasty, wholesome everyday nutrition.</p>
-        <p class="footer-meta">&copy; 2026 Pawlio. All rights reserved.</p>
+        <p>Wholesome adult dog food made with real meat and quality protein for happy, healthy everyday adventures.</p>
       </div>
+
+      <nav aria-labelledby="footer-explore-heading">
+        <h2 class="footer-heading" id="footer-explore-heading">Explore</h2>
+        <ul class="footer-links">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#about-us">About Pawlio</a></li>
+          <li><a href="#why-pawlio">Why Choose Pawlio</a></li>
+          <li><a href="#our-product">Shop Dog Food</a></li>
+          <li><a href="golden-crunch.html">Golden Crunch</a></li>
+          <li><a href="beef-delight.html">Beef Delight</a></li>
+        </ul>
+      </nav>
+
+      <section aria-labelledby="footer-service-heading">
+        <h2 class="footer-heading" id="footer-service-heading">Shop with Confidence</h2>
+        <div class="footer-info">
+          <p class="footer-info-item">
+            <strong>Secure Payment by Stripe</strong>
+            <span>Fast, encrypted checkout for every order.</span>
+          </p>
+          <p class="footer-info-item">
+            <strong>Shipping Across the United States</strong>
+            <span>Pawlio delivers to customers nationwide.</span>
+          </p>
+        </div>
+      </section>
+
       <div class="footer-social-links" role="group" aria-label="Pawlio social media">
         <img class="follow-img" src="images/follow.png" alt="Follow us">
         <img class="social-img" src="images/yt.png" alt="Pawlio on YouTube">
         <img class="social-img" src="images/tiktok.png" alt="Pawlio on TikTok">
         <img class="social-img" src="images/ig.png" alt="Pawlio on Instagram">
       </div>
+      <p class="footer-meta">&copy; 2026 Pawlio. All rights reserved.</p>
     </footer>
   </main>
 
